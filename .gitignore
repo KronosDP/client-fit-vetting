@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+.pnp
+.pnp.js
+
+# Build outputs
+frontend/dist/
+frontend/build/
+
+# Local databases & logs
+*.db
+*.log
+backend/app/data/
+
+# Python cache and environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.ipynb_checkpoints
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Ignore all markdown files by default
+*.md
+
+# EXCEPT README.md (allow pushing README to GitHub)
+!README.md

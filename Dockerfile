@@ -20,9 +20,12 @@ COPY backend/ ./backend/
 # Copy built frontend assets from builder stage
 COPY --from=frontend-builder /app/frontend/dist /app/frontend/dist
 
-# Expose port and set production environment variables
-ENV PORT=8080
-EXPOSE 8080
+# Expose port and set production environment variables (Hugging Face expects port 7860)
+ENV PORT=7860
+EXPOSE 7860
+
+# Create the data directory and ensure it has write permissions for non-root user 1000
+RUN mkdir -p /app/backend/data && chmod -R 777 /app
 
 WORKDIR /app/backend
 

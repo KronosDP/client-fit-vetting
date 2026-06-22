@@ -20,6 +20,8 @@ _default_db_dir.mkdir(parents=True, exist_ok=True)
 _default_db_path = _default_db_dir / "staffinc_mvp.db"
 
 DATABASE_PATH = os.getenv("DATABASE_PATH", str(_default_db_path))
+# Ensure the parent directory of the database file exists (e.g. for custom volume mounts)
+Path(DATABASE_PATH).parent.mkdir(parents=True, exist_ok=True)
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
 # ---------------------------------------------------------------------------

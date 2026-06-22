@@ -10,6 +10,7 @@ from typing import Optional
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from .brief_generator import generate_brief
@@ -175,6 +176,20 @@ def api_get_bars():
         "anchors": BARS_ANCHORS,
         "archetype_defaults": ARCHETYPE_DEFAULTS,
     }
+
+
+# --- Health check ------------------------------------------------------
+@app.get("/health")
+def health_check(db: Session = Depends(get_db)):
+    """Health check endpoint to verify app status and DB connection."""
+    try:
+        db.execute(text("SELECT 1"))
+        return {"status": "healthy", "database": "connected"}
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Database connection failed: {str(e)}",
+        )
 
 
 # ===================================================================
